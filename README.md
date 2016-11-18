@@ -1,7 +1,7 @@
-ixudra/flow
+ixudra/wizard
 =====================
 
-Custom PHP flow package for the Laravel 5 framework - developed by [Ixudra](http://ixudra.be).
+Custom PHP wizard package for the Laravel 5 framework - developed by [Ixudra](http://ixudra.be).
 
 This package can be used by anyone at any given time, but keep in mind that it is optimized for my personal custom workflow. It may not suit your project perfectly and modifications may be in order.
 
@@ -15,7 +15,7 @@ Pull this package in through Composer.
 
     {
         "require": {
-            "ixudra/flow": "1.*"
+            "ixudra/wizard": "1.*"
         }
     }
 
