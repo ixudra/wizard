@@ -102,7 +102,7 @@ class Flow extends Model {
      */
     public function getFirstStep()
     {
-        $steps = json_decode( $this->steps, true );
+        $steps = $this->getConfig('steps');
         reset($steps);
 
         return key($steps);
