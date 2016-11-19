@@ -60,11 +60,27 @@ class Flow extends Model {
     }
 
     /**
+     * Return the configuration for this group purchase
+     *
+     * @param   string      $key    Name of the configuration value to be extracted in dot notation
+     * @return mixed
+     */
+    public function getConfig($key = '')
+    {
+        $config = json_decode($this->config, true);
+        if( empty($key) ) {
+            return $config;
+        }
+
+        return array_get( $config, $key );
+    }
+
+    /**
      * @return \Ixudra\Wizard\Flows\BaseFlowHandler
      */
     public function getFlowHandler()
     {
-        return App::make( '\Ixudra\Wizard\Flows\\'. Str::studly( $this->name ) .'\FlowHandler', array( $this ) );
+        return App::make( $this->getConfig('handler'), array( $this ) );
     }
 
     /**
@@ -73,12 +89,12 @@ class Flow extends Model {
      */
     public function getFlowStepHandler($key)
     {
-        $steps = json_decode( $this->steps, true );
-        if( !array_key_exists( $key, $steps ) ) {
-            throw new InvalidArgumentException('Invalid flow step specified: ' . $key);
+        $flowStepHandler = $this->getConfig('steps.' . $key . '.handler');
+        if( empty($flowStepHandler) ) {
+            throw new InvalidArgumentException('Invalid flow step specified: '. $key);
         }
 
-        return App::make( $steps[ $key ][ 'handler' ] );
+        return App::make( $flowStepHandler );
     }
 
     /**

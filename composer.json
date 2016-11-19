@@ -1,7 +1,7 @@
 {
     "name": "ixudra/wizard",
     "description": "Custom PHP wizard library for the Laravel 5 framework - developed by Ixudra",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "keywords": ["Ixudra", "Laravel", "flow", "wizard"],
     "homepage": "http://ixudra.be",
     "license": "MIT",

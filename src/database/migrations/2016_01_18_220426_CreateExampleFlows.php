@@ -8,19 +8,22 @@ class CreateExampleFlows extends Migration {
 
     public function up()
     {
-        $steps = array(
-            'first-step'                    => array(
-                'handler'                       => 'App\Flows\ExampleFlow\Steps\FirstStep'
-            ),
-            'second-step'                   => array(
-                'handler'                       => 'App\Flows\ExampleFlow\Steps\SecondStep'
+        $config = array(
+            'handler'                       => 'App\Flows\ExampleFlow\FlowHandler',
+            'steps'                         => array(
+                'first-step'                    => array(
+                    'handler'                       => 'App\Flows\ExampleFlow\Steps\FirstStep'
+                ),
+                'second-step'                   => array(
+                    'handler'                       => 'App\Flows\ExampleFlow\Steps\SecondStep'
+                ),
             ),
         );
 
         DB::table('flows')->insert(
             array(
                 'name'      => 'example-flow',
-                'steps'     => json_encode( $steps )
+                'config'    => json_encode( $config )
             )
         );
     }

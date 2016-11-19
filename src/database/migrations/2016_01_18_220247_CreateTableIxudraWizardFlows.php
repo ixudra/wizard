@@ -11,7 +11,7 @@ class CreateTableIxudraWizardFlows extends Migration {
         Schema::create('flows', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name', 128);
-            $table->text('steps');
+            $table->text('config');
             $table->timestamps();
             $table->softDeletes();
         });

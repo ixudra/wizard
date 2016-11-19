@@ -25,10 +25,10 @@ Add the service provider to your `config/app.php` file. Additionally, you will a
 
 ```php
 
-    providers     => array(
+    'providers'     => array(
 
         //...
-        'Ixudra\Flow\FlowServiceProvider',
+        Ixudra\Wizard\WizardServiceProvider::class,
 
     ),
 
