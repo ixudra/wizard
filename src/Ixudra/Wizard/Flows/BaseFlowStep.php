@@ -84,15 +84,16 @@ abstract class BaseFlowStep {
     /**
      * Redirects the user back to the previous flow step with the input values provided for the user and a warning message
      *
-     * @param   array $input        Array of input values that are passed along to the request
-     * @param   string $type        Type of warning that is to be given to the user
-     * @param   string $message     Message that is to be sent to the user
+     * @param   array $input            Array of input values that are passed along to the request
+     * @param   string $messageType     Type of warning that is to be given to the user
+     * @param   array $messages         Array of messages that are to be sent to the user
      * @return  RedirectResponse
      */
-    protected function back($input = array(), $type = '', $message = '')
+    protected function back($input = array(), $messageType = '', $messages = array())
     {
         return Redirect::back()
-            ->with( $type, $message )
+            ->with( 'messageType', $messageType )
+            ->with( 'messages', $messages )
             ->withInput( $input );
     }
 
