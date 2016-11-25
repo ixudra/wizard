@@ -29,7 +29,7 @@ abstract class BaseFlowHandler implements FlowHandlerInterface {
     }
 
     /**
-     * Returns an array of breadcrumbs that can be shown to the user for this flow
+     * Returns an array of breadcrumbs of all flow steps up to the currently active flow step
      *
      * @param   string $currentStep         Identifier of the currently active flow step
      * @param   array $input                Array of input values that are passed along to the request
@@ -37,8 +37,39 @@ abstract class BaseFlowHandler implements FlowHandlerInterface {
      */
     public function getBreadcrumbs($currentStep, $input = array())
     {
-        return array();
+        $breadcrumbs = $this->getStepsForBreadcrumbs();
+
+        array_walk(
+            $breadcrumbs,
+            function (&$item, $key) use ($input) {
+                $breadcrumb = $this->getEmptyBreadcrumb($key);
+                $breadcrumb->title = trans($item[ 'title' ]);
+                foreach( $item[ 'params' ] as $name ) {
+                    if( array_key_exists($name, $input) ) {
+                        $breadcrumb->getParameters[ $name ] = $input[ $name ];
+                    }
+                }
+
+                $item = $breadcrumb;
+            }
+        );
+
+        $position = array_search($currentStep, array_keys($breadcrumbs));
+        if ($position !== false) {
+            array_splice($breadcrumbs, ($position + 1));
+        }
+
+        $breadcrumbs[ $currentStep ]->class = 'active';
+
+        return $breadcrumbs;
     }
+
+    /**
+     * Returns an array of all available breadcrumbs that can be shown to the user for this flow
+     *
+     * @return  array
+     */
+    abstract protected function getStepsForBreadcrumbs();
 
     /**
      * Return an empty breadcrumb

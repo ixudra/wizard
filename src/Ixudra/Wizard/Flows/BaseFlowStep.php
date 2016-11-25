@@ -45,7 +45,7 @@ abstract class BaseFlowStep {
     {
         $parameters[ 'flow' ] = $flow;
 
-        return $this->flowViewFactory->renderStep( $this->view, $parameters);
+        return $this->flowViewFactory->renderStep( $this->getView(), $parameters);
     }
 
     /**
@@ -109,6 +109,13 @@ abstract class BaseFlowStep {
     {
         return $this->redirect( 'flows.step', array( $flow->id, $step ) + $input );
     }
+
+    /**
+     * Returns the view that should be displayed for this flow step
+     *
+     * @return  string
+     */
+    abstract protected function getView();
 
     /**
      * Returns the translation prefix for this flow step

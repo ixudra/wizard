@@ -8,9 +8,6 @@ use Ixudra\Wizard\Services\Html\FlowViewFactory;
 
 class SecondStep extends FlowStep implements FlowStepInterface {
 
-    protected $view = 'wizard::bootstrap.flows.exampleFlow.secondStep.step';
-
-
     public function __construct(FlowViewFactory $flowViewFactory)
     {
         parent::__construct( $flowViewFactory );
@@ -29,6 +26,11 @@ class SecondStep extends FlowStep implements FlowStepInterface {
         return $this->redirect('index', array(), 'success', array('Flow completed!'));
     }
 
+
+    protected function getView()
+    {
+        return 'wizard::bootstrap.flows.exampleFlow.secondStep.step';
+    }
 
     protected function getTranslationPrefix()
     {
