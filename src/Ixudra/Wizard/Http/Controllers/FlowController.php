@@ -9,6 +9,8 @@ use Ixudra\Wizard\Repositories\Eloquent\EloquentFlowRepository;
 
 use Exception;
 use Redirect;
+use Translate;
+use Config;
 
 class FlowController extends BaseController {
 
@@ -26,7 +28,7 @@ class FlowController extends BaseController {
         /** @var Flow $flow */
         $flow = $this->flowRepository->find( $id );
         if( is_null($flow) ) {
-            return $this->notFound($id);
+            return $this->notFound( $id );
         }
 
         if( is_null($step) ) {
@@ -37,14 +39,20 @@ class FlowController extends BaseController {
 
         if( !$flow->isAllowed( $step, $input ) ) {
             return Redirect::route('index')
-                ->with('warning', trans('flows.errors.notAllowed', array('id' => $id)));
+                ->with('messageType', 'error')
+                ->with('messages', array( Translate::recursive('wizard::flows.errors.notAllowed', array('id' => $id)) ));
         }
 
         try {
             $response = $flow->render( $step, $input );
         } catch(Exception $e) {
+            if( Config::get('app.debug') ) {
+                throw $e;
+            }
+
             return Redirect::back()
-                ->with('warning', trans('flows.errors.general', array('id' => $id)));
+                ->with('messageType', 'error')
+                ->with('messages', array( Translate::recursive('wizard::flows.errors.general', array('id' => $id)) ));
         }
 
         return $response;
@@ -55,7 +63,7 @@ class FlowController extends BaseController {
         /** @var Flow $flow */
         $flow = $this->flowRepository->find( $id );
         if( is_null($flow) ) {
-            return $this->notFound($id);
+            return $this->notFound( $id );
         }
 
         $input = $request->getInput();
@@ -63,14 +71,20 @@ class FlowController extends BaseController {
 
         if( !$flow->isAllowed( $step, $input ) ) {
             return Redirect::route('index')
-                ->with('warning', trans('flows.errors.notAllowed', array('id' => $id)));
+                ->with('messageType', 'error')
+                ->with('messages', array( Translate::recursive('wizard::flows.errors.notAllowed', array('id' => $id)) ));
         }
 
         try {
             $response = $flow->handle( $step, $input );
         } catch(Exception $e) {
+            if( !Config::get('app.debug') ) {
+                throw $e;
+            }
+
             return Redirect::back()
-                ->with('warning', trans('flows.errors.general', array('id' => $id)));
+                ->with('messageType', 'error')
+                ->with('messages', array( Translate::recursive('wizard::flows.errors.general', array('id' => $id)) ));
         }
 
         return $response;
@@ -80,7 +94,8 @@ class FlowController extends BaseController {
     protected function notFound($id)
     {
         return Redirect::route('flows.index')
-            ->with('warning', trans('flows.notFound', array('id' => $id)));
+            ->with('messageType', 'error')
+            ->with('messages', array( Translate::recursive('wizard::flows.notFound', array('id' => $id)) ));
     }
 
 }

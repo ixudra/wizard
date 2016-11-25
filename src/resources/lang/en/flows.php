@@ -20,6 +20,7 @@
         ),
 
         'errors'                            => array(
+            'general'                           => 'Something has gone wrong while processing the flow step',
             'notAllowed'                        => 'You are not allowed to access this flow step',
         ),
 
