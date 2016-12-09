@@ -1,7 +1,7 @@
 {
     "name": "ixudra/wizard",
     "description": "Custom PHP wizard library for the Laravel 5 framework - developed by Ixudra",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "keywords": ["Ixudra", "Laravel", "flow", "wizard"],
     "homepage": "http://ixudra.be",
     "license": "MIT",
@@ -19,6 +19,10 @@
         "laravelcollective/html": "~5.2",
         "ixudra/core": "~5.0",
         "ixudra/translation": "~5.1"
+    },
+
+    "require-dev": {
+        "ixudra/generators": "~5.5"
     },
 
     "autoload": {

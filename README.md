@@ -21,7 +21,7 @@ Pull this package in through Composer.
 
 ```
 
-Add the service provider to your `config/app.php` file. Additionally, you will also need to include the service providers of the package dependencies:
+Add the service provider to your `config/app.php` file. 
 
 ```php
 
@@ -59,12 +59,32 @@ Alternatively, you can also publish the migrations using artisan:
 
 ```
 
+For creating new flows, you can leverage the functionality that is being made available by the `ixudra/generators` package. This package can be used to generate a wide variety of files such as models and controllers, but also offers specific templates that fit hand in glove into this package.
+
+In order to use this functionality, you also need to include the service provider for the `ixudra/generators` package in your `config/app.php` file:
+
+
+```php
+
+    'providers'     => array(
+
+        //...
+        Ixudra\Wizard\WizardServiceProvider::class,
+        Ixudra\Generators\GeneratorsServiceProvider::class,
+
+    ),
+
+```
+
 
 ## Usage
 
 The package provides the key building blocks to easily create wizards and flows in your application. The actual flows need to be built in your application and need to follow a specific pattern for them to fit into this mold. In this document I will describe how to create an example flow called `ExampleFlow` which should provide you with enough information on how to create your own. 
 
-Add the flow controller to your routes file with the prefixes and middleware that you require
+
+### Step 1: Adding the flow routes
+
+Add the flow controller to your routes file with the prefixes and middleware that you require:
 
 ```php
 
@@ -77,29 +97,43 @@ Add the flow controller to your routes file with the prefixes and middleware tha
 
 ```
 
-Create a new directory for your flow in your app directory
+These two routes will support all the functionality that you will need for your flows. The routes will support any number of flows and should thus only be added once (unless in certain cases where a different route configuration is needd per flow, e.g. middleware or route prefixes).
+
+
+### Step 2: Writing the flow migrations
+
+Create a new flow using Laravel migrations. For your convenience, you can copy this time from `Ixudra/Wizard/database/CreateExampleFlows.php` to get a head start.
+
+
+### Step 3: Creating the flow 
+
+To make a new flow, simply use the following command:
+
+```
+    php artisan generate:flow example_flow first_step
 
 ```
 
-    mkdir appRoot/app/Flows
-    mkdir appRoot/app/Flows/ExampleFlow
-    mkdir appRoot/app/Flows/ExampleFlow/Steps
+This will automatically generate all required flow files in the correct folders and fill in the correct variables based on the the parameters passed to the command. The first parameter is the name of the flow, the second parameter is the name of the first flow step that is to be created for this flow. 
 
-```
 
-Create a new flow through migrations. For your convenience, you can copy this time from `Ixudra/Wizard/database/CreateExampleFlows.php` to get a head start.
+### Step 4: Accessing the flow
 
-Create a `App\Flows\ExampleFlow\FlowHandler` class that extends the `Ixudra\Wizard\Flows\BaseFlowHandler` class and place it in the `appRoot/app/flows/ExampleFlow` directory. Implement the abstract methods and override the existing ones to match your specific situation. For your convenience, you can copy this file from `Ixudra/Wizard/Flows/ExampleFlow/FlowHandler` to get a head start.
-
-Create a `App\Flows\ExampleFlow\FlowStep` class that extends the `Ixudra\Wizard\Flows\BaseFlowHandler` class and place it in the `appRoot/app/flows/ExampleFlow` directory. Implement the abstract methods and override the existing ones to match your specific situation. For your convenience, you can copy this file from `Ixudra/Wizard/Flows/ExampleFlow/FlowStep` to get a head start.
-
-Create a new `App\Flows\ExampleFlow\Steps\FirstStep` class that extends the `App\Flows\ExampleFlow\FlowStep` class and place it in the `appRoot/app/flows/ExampleFlow/steps` directory. Implement the abstract methods and override the existing ones to match your specific situation. For your convenience, you can copy this file from `Ixudra/Wizard/Flows/ExampleFlow/Steps/FirstStep` to get a head start. This will be the first step that will be shown when accessing the flow through your routes. The path of the flow step must match the path that was specified in your migration file.
-
-Create a new view called `step.php` and place it in the `appRoot/recources/flows/exampleFlow/firstStep/step.blade.php` directory. For your convenience, you can copy this file from `Ixudra/Wizard/resources/views/bootstrap/flows/exampleFlow/firstStep/step.blade.php` to get a head start.
-
-Once this is done, you are good to go and you can access your flow via the url `http://app.dev/flows/1`, which will automatically redirect to the first flow step if no specific step is specified. You can add as many flow steps as you want. To add new flow steps, simply add the necessary `FlowStepHandler` class and `step.blade.php` file and update the flow information through a migration.
+Once this is done, you are good to go and you can access your flow via the url http://app.dev/flows/1, which will automatically redirect to the first flow step if no specific step is specified. You can add as many flow steps as you want. To add new flow steps, simply add the necessary FlowStepHandler class and step.blade.php file and update the flow information through a migration.
 
 Switching between flow steps is easy. This can be done through GET requests (if no processing is needed) or through POST requests (if processing is needed). 
+
+Some modifications may be in order depending on your setup, but this should provide you with a decent scaffold to speed up your development process.
+
+
+### Step 5: Adding additional flow steps
+
+To create additional flow steps, you will need to update the flow config in the database using a migration. After that, you need to create a new flow step class as well as a new view that will render the step to the user (if applicable). You can use the following command to automatically create both files for you in the correct locations:
+
+```
+    php artisan generate:flow-step example_flow second_step
+
+```
 
 
 That's all there is to it! Have fun!
