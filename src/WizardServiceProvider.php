@@ -15,25 +15,25 @@ class WizardServiceProvider extends ServiceProvider {
 
     public function boot()
     {
-        $this->loadTranslationsFrom( __DIR__ .'/../../resources/lang', 'wizard' );
-        $this->loadViewsFrom( __DIR__ .'/../../resources/views', 'wizard' );
+        $this->loadTranslationsFrom( __DIR__ .'/resources/lang', 'wizard' );
+        $this->loadViewsFrom( __DIR__ .'/resources/views', 'wizard' );
 
 
         // Publish language files
         $this->publishes(array(
-            __DIR__ .'/../../resources/lang'                => base_path('resources/lang'),
+            __DIR__ .'/resources/lang'                  => base_path('resources/lang'),
         ), 'lang');
 
 
         // Publish views
         $this->publishes(array(
-            __DIR__ .'/../../resources/views'               => base_path('resources/views/bootstrap'),
+            __DIR__ .'/resources/views'                 => base_path('resources/views/bootstrap'),
         ), 'views');
 
 
         // Publish migrations
         $this->publishes(array(
-            __DIR__ .'/../../database/migrations/'          => base_path('database/migrations')
+            __DIR__ .'/database/migrations/'            => base_path('database/migrations')
         ), 'migrations');
     }
 
