@@ -32,7 +32,5 @@
         "psr-4": {
             "Ixudra\\Wizard\\": "src/"
         }
-    },
-
-    "minimum-stability": "stable"
+    }
 }
