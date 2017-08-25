@@ -1,6 +1,11 @@
 ixudra/wizard
 =====================
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/ixudra/wizard.svg?style=flat-square)](https://packagist.org/packages/ixudra/wizard)
+[![license](https://img.shields.io/github/license/ixudra/wizard.svg)]()
+[![StyleCI](https://styleci.io/repos/74174078/shield)](https://styleci.io/repos/74174078)
+[![Total Downloads](https://img.shields.io/packagist/dt/ixudra/wizard.svg?style=flat-square)](https://packagist.org/packages/ixudra/wizard)
+
 Custom PHP wizard package for the Laravel 5 framework - developed by [Ixudra](http://ixudra.be).
 
 This package can be used by anyone at any given time, but keep in mind that it is optimized for my personal custom workflow. It may not suit your project perfectly and modifications may be in order.
