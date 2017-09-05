@@ -20,7 +20,7 @@ Pull this package in through Composer.
 
     {
         "require": {
-            "ixudra/wizard": "1.*"
+            "ixudra/wizard": "2.*"
         }
     }
 
@@ -145,6 +145,14 @@ That's all there is to it! Have fun!
 
 
 
+
+## Support
+
+Help me further develop and maintain this package by supporting me via [Patreon](https://www.patreon.com/ixudra)!!
+
+
+
+
 ## License
 
 This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
@@ -153,6 +161,10 @@ This package is open-sourced software licensed under the [MIT license](http://op
 
 
 ## Contact
+
+For package questions, bug, suggestions and/or feature requests, please use the Github issue system and/or submit a pull request. When submitting an issue, always provide a detailed explanation of your problem, any response or feedback your get, log messages that might be relevant as well as a source code example that demonstrates the problem. If not, I will most likely not be able to help you with your problem. Please review the [contribution guidelines](https://github.com/ixudra/wizard/blob/master/CONTRIBUTING.md) before submitting your issue or pull request.
+
+For any other questions, feel free to use the credentials listed below: 
 
 Jan Oris (developer)
 
