@@ -78,7 +78,7 @@ class FlowController extends BaseController {
         try {
             $response = $flow->handle( $step, $input );
         } catch(Exception $e) {
-            if( !Config::get('app.debug') ) {
+            if( Config::get('app.debug') ) {
                 throw $e;
             }
 
